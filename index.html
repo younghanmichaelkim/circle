@@ -1,26 +1,8 @@
-Skip to content
- 
-Search or jump to¡¦
-
-Pull requests
-Issues
-Marketplace
-Explore
- 
-@younghanmichaelkim Sign out
-0
-0 0 younghanmichaelkim/daumap
- Code  Issues 0  Pull requests 0  Projects 0  Wiki  Insights  Settings
-daumap/index.html
-@younghanmichaelkim younghanmichaelkim Update index.html
-4d49c2c 14 seconds ago
-302 lines (244 sloc)  13.8 KB
-    
 <!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8">
-    <title>´Ü°Å¸®? Àå°Å¸®?</title>
+    <title>ë‹¨ê±°ë¦¬? ì¥ê±°ë¦¬?</title>
     <style>
 .info {position:relative;top:5px;left:5px;border-radius:6px;border: 1px solid #ccc;border-bottom:2px solid #ddd;font-size:12px;padding:5px;background:#fff;list-style:none;margin:0;} 
 .info:nth-of-type(n) {border:0; box-shadow:0px 1px 2px #888;}    
@@ -31,87 +13,87 @@ daumap/index.html
 <body>
 <div id="map" style="width:90%;height:900px;"></div>  
 <p>
-    <button onclick="removeCircles()">¸ğµÎ Áö¿ì±â</button> <br>  
+    <button onclick="removeCircles()">ëª¨ë‘ ì§€ìš°ê¸°</button> <br>  
 </p>  
 <em>
-    Áöµµ¸¦ ¸¶¿ì½º·Î Å¬¸¯ÇÏ¸é ¿ø ±×¸®±â°¡ ½ÃÀÛµÇ°í <br>
-    ¿À¸¥ÂÊ ¸¶¿ì½º¸¦ Å¬¸¯ÇÏ¸é ¿ø ±×¸®±â°¡ Á¾·áµË´Ï´Ù    
+    ì§€ë„ë¥¼ ë§ˆìš°ìŠ¤ë¡œ í´ë¦­í•˜ë©´ ì› ê·¸ë¦¬ê¸°ê°€ ì‹œì‘ë˜ê³  <br>
+    ì˜¤ë¥¸ìª½ ë§ˆìš°ìŠ¤ë¥¼ í´ë¦­í•˜ë©´ ì› ê·¸ë¦¬ê¸°ê°€ ì¢…ë£Œë©ë‹ˆë‹¤    
 </em>
  
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=3ae3a2a7e8bb51f02acf0eee8d9f1476"></script>
 <script>
-var mapContainer = document.getElementById('map'), // Áöµµ¸¦ Ç¥½ÃÇÒ div  
+var mapContainer = document.getElementById('map'), // ì§€ë„ë¥¼ í‘œì‹œí•  div  
     mapOption = { 
-        center: new daum.maps.LatLng(37.301819, 127.066712), // ÁöµµÀÇ Áß½ÉÁÂÇ¥
-        level: 2 // ÁöµµÀÇ È®´ë ·¹º§  
+        center: new daum.maps.LatLng(37.301819, 127.066712), // ì§€ë„ì˜ ì¤‘ì‹¬ì¢Œí‘œ
+        level: 2 // ì§€ë„ì˜ í™•ëŒ€ ë ˆë²¨  
     };
-var map = new daum.maps.Map(mapContainer, mapOption); // Áöµµ¸¦ »ı¼ºÇÕ´Ï´Ù
-var drawingFlag = false; // ¿øÀÌ ±×·ÁÁö°í ÀÖ´Â »óÅÂ¸¦ °¡Áö°í ÀÖÀ» º¯¼öÀÔ´Ï´Ù
-var centerPosition; // ¿øÀÇ Áß½ÉÁÂÇ¥ ÀÔ´Ï´Ù
-var drawingCircle; // ±×·ÁÁö°í ÀÖ´Â ¿øÀ» Ç¥½ÃÇÒ ¿ø °´Ã¼ÀÔ´Ï´Ù
-var drawingLine; // ±×·ÁÁö°í ÀÖ´Â ¿øÀÇ ¹İÁö¸§À» Ç¥½ÃÇÒ ¼± °´Ã¼ÀÔ´Ï´Ù
-var drawingOverlay; // ±×·ÁÁö°í ÀÖ´Â ¿øÀÇ ¹İ°æÀ» Ç¥½ÃÇÒ Ä¿½ºÅÒ¿À¹ö·¹ÀÌ ÀÔ´Ï´Ù
-var drawingDot; // ±×·ÁÁö°í ÀÖ´Â ¿øÀÇ Áß½ÉÁ¡À» Ç¥½ÃÇÒ Ä¿½ºÅÒ¿À¹ö·¹ÀÌ ÀÔ´Ï´Ù
-var circles = []; // Å¬¸¯À¸·Î ±×·ÁÁø ¿ø°ú ¹İ°æ Á¤º¸¸¦ Ç¥½ÃÇÏ´Â ¼±°ú Ä¿½ºÅÒ¿À¹ö·¹ÀÌ¸¦ °¡Áö°í ÀÖÀ» ¹è¿­ÀÔ´Ï´Ù
+var map = new daum.maps.Map(mapContainer, mapOption); // ì§€ë„ë¥¼ ìƒì„±í•©ë‹ˆë‹¤
+var drawingFlag = false; // ì›ì´ ê·¸ë ¤ì§€ê³  ìˆëŠ” ìƒíƒœë¥¼ ê°€ì§€ê³  ìˆì„ ë³€ìˆ˜ì…ë‹ˆë‹¤
+var centerPosition; // ì›ì˜ ì¤‘ì‹¬ì¢Œí‘œ ì…ë‹ˆë‹¤
+var drawingCircle; // ê·¸ë ¤ì§€ê³  ìˆëŠ” ì›ì„ í‘œì‹œí•  ì› ê°ì²´ì…ë‹ˆë‹¤
+var drawingLine; // ê·¸ë ¤ì§€ê³  ìˆëŠ” ì›ì˜ ë°˜ì§€ë¦„ì„ í‘œì‹œí•  ì„  ê°ì²´ì…ë‹ˆë‹¤
+var drawingOverlay; // ê·¸ë ¤ì§€ê³  ìˆëŠ” ì›ì˜ ë°˜ê²½ì„ í‘œì‹œí•  ì»¤ìŠ¤í…€ì˜¤ë²„ë ˆì´ ì…ë‹ˆë‹¤
+var drawingDot; // ê·¸ë ¤ì§€ê³  ìˆëŠ” ì›ì˜ ì¤‘ì‹¬ì ì„ í‘œì‹œí•  ì»¤ìŠ¤í…€ì˜¤ë²„ë ˆì´ ì…ë‹ˆë‹¤
+var circles = []; // í´ë¦­ìœ¼ë¡œ ê·¸ë ¤ì§„ ì›ê³¼ ë°˜ê²½ ì •ë³´ë¥¼ í‘œì‹œí•˜ëŠ” ì„ ê³¼ ì»¤ìŠ¤í…€ì˜¤ë²„ë ˆì´ë¥¼ ê°€ì§€ê³  ìˆì„ ë°°ì—´ì…ë‹ˆë‹¤
 var circle = new daum.maps.Circle({
-    center : new daum.maps.LatLng(37.301819, 127.0667127),  // ¿øÀÇ Áß½ÉÁÂÇ¥ ÀÔ´Ï´Ù 
-    radius: 40000, // ¹ÌÅÍ ´ÜÀ§ÀÇ ¿øÀÇ ¹İÁö¸§ÀÔ´Ï´Ù 
-    strokeWeight: 1, // ¼±ÀÇ µÎ²²ÀÔ´Ï´Ù 
-    strokeColor: '#75B8FA', // ¼±ÀÇ »ö±òÀÔ´Ï´Ù
-    strokeOpacity: 1, // ¼±ÀÇ ºÒÅõ¸íµµ ÀÔ´Ï´Ù 1¿¡¼­ 0 »çÀÌÀÇ °ªÀÌ¸ç 0¿¡ °¡±î¿ï¼ö·Ï Åõ¸íÇÕ´Ï´Ù
-    strokeStyle: 'dashed', // ¼±ÀÇ ½ºÅ¸ÀÏ ÀÔ´Ï´Ù
-    fillColor: '#ffffff', // Ã¤¿ì±â »ö±òÀÔ´Ï´Ù
-    fillOpacity: 0.5  // Ã¤¿ì±â ºÒÅõ¸íµµ ÀÔ´Ï´Ù   
+    center : new daum.maps.LatLng(37.301819, 127.0667127),  // ì›ì˜ ì¤‘ì‹¬ì¢Œí‘œ ì…ë‹ˆë‹¤ 
+    radius: 40000, // ë¯¸í„° ë‹¨ìœ„ì˜ ì›ì˜ ë°˜ì§€ë¦„ì…ë‹ˆë‹¤ 
+    strokeWeight: 1, // ì„ ì˜ ë‘ê»˜ì…ë‹ˆë‹¤ 
+    strokeColor: '#75B8FA', // ì„ ì˜ ìƒ‰ê¹”ì…ë‹ˆë‹¤
+    strokeOpacity: 1, // ì„ ì˜ ë¶ˆíˆ¬ëª…ë„ ì…ë‹ˆë‹¤ 1ì—ì„œ 0 ì‚¬ì´ì˜ ê°’ì´ë©° 0ì— ê°€ê¹Œìš¸ìˆ˜ë¡ íˆ¬ëª…í•©ë‹ˆë‹¤
+    strokeStyle: 'dashed', // ì„ ì˜ ìŠ¤íƒ€ì¼ ì…ë‹ˆë‹¤
+    fillColor: '#ffffff', // ì±„ìš°ê¸° ìƒ‰ê¹”ì…ë‹ˆë‹¤
+    fillOpacity: 0.5  // ì±„ìš°ê¸° ë¶ˆíˆ¬ëª…ë„ ì…ë‹ˆë‹¤   
 }); 
     
     var circle2 = new daum.maps.Circle({
-    center : new daum.maps.LatLng(37.301819, 127.0667127),  // ¿øÀÇ Áß½ÉÁÂÇ¥ ÀÔ´Ï´Ù 
-    radius: 80000, // ¹ÌÅÍ ´ÜÀ§ÀÇ ¿øÀÇ ¹İÁö¸§ÀÔ´Ï´Ù 
-    strokeWeight: 1, // ¼±ÀÇ µÎ²²ÀÔ´Ï´Ù 
-    strokeColor: '#75B8FA', // ¼±ÀÇ »ö±òÀÔ´Ï´Ù
-    strokeOpacity: 1, // ¼±ÀÇ ºÒÅõ¸íµµ ÀÔ´Ï´Ù 1¿¡¼­ 0 »çÀÌÀÇ °ªÀÌ¸ç 0¿¡ °¡±î¿ï¼ö·Ï Åõ¸íÇÕ´Ï´Ù
-    strokeStyle: 'dashed', // ¼±ÀÇ ½ºÅ¸ÀÏ ÀÔ´Ï´Ù
-    fillColor: '#ffffff', // Ã¤¿ì±â »ö±òÀÔ´Ï´Ù
-    fillOpacity: 0.5  // Ã¤¿ì±â ºÒÅõ¸íµµ ÀÔ´Ï´Ù   
+    center : new daum.maps.LatLng(37.301819, 127.0667127),  // ì›ì˜ ì¤‘ì‹¬ì¢Œí‘œ ì…ë‹ˆë‹¤ 
+    radius: 80000, // ë¯¸í„° ë‹¨ìœ„ì˜ ì›ì˜ ë°˜ì§€ë¦„ì…ë‹ˆë‹¤ 
+    strokeWeight: 1, // ì„ ì˜ ë‘ê»˜ì…ë‹ˆë‹¤ 
+    strokeColor: '#75B8FA', // ì„ ì˜ ìƒ‰ê¹”ì…ë‹ˆë‹¤
+    strokeOpacity: 1, // ì„ ì˜ ë¶ˆíˆ¬ëª…ë„ ì…ë‹ˆë‹¤ 1ì—ì„œ 0 ì‚¬ì´ì˜ ê°’ì´ë©° 0ì— ê°€ê¹Œìš¸ìˆ˜ë¡ íˆ¬ëª…í•©ë‹ˆë‹¤
+    strokeStyle: 'dashed', // ì„ ì˜ ìŠ¤íƒ€ì¼ ì…ë‹ˆë‹¤
+    fillColor: '#ffffff', // ì±„ìš°ê¸° ìƒ‰ê¹”ì…ë‹ˆë‹¤
+    fillOpacity: 0.5  // ì±„ìš°ê¸° ë¶ˆíˆ¬ëª…ë„ ì…ë‹ˆë‹¤   
 }); 
-// Áöµµ¿¡ ¿øÀ» Ç¥½ÃÇÕ´Ï´Ù 
+// ì§€ë„ì— ì›ì„ í‘œì‹œí•©ë‹ˆë‹¤ 
 circle.setMap(map);     
     
     
-// Áöµµ¿¡ Å¬¸¯ ÀÌº¥Æ®¸¦ µî·ÏÇÕ´Ï´Ù
+// ì§€ë„ì— í´ë¦­ ì´ë²¤íŠ¸ë¥¼ ë“±ë¡í•©ë‹ˆë‹¤
 daum.maps.event.addListener(map, 'click', function(mouseEvent) {
         
-    // Å¬¸¯ ÀÌº¥Æ®°¡ ¹ß»ıÇßÀ» ¶§ ¿øÀ» ±×¸®°í ÀÖ´Â »óÅÂ°¡ ¾Æ´Ï¸é Áß½ÉÁÂÇ¥¸¦ Å¬¸¯ÇÑ ÁöÁ¡À¸·Î ¼³Á¤ÇÕ´Ï´Ù
+    // í´ë¦­ ì´ë²¤íŠ¸ê°€ ë°œìƒí–ˆì„ ë•Œ ì›ì„ ê·¸ë¦¬ê³  ìˆëŠ” ìƒíƒœê°€ ì•„ë‹ˆë©´ ì¤‘ì‹¬ì¢Œí‘œë¥¼ í´ë¦­í•œ ì§€ì ìœ¼ë¡œ ì„¤ì •í•©ë‹ˆë‹¤
     if (!drawingFlag) {    
         
-        // »óÅÂ¸¦ ±×¸®°íÀÖ´Â »óÅÂ·Î º¯°æÇÕ´Ï´Ù
+        // ìƒíƒœë¥¼ ê·¸ë¦¬ê³ ìˆëŠ” ìƒíƒœë¡œ ë³€ê²½í•©ë‹ˆë‹¤
         drawingFlag = true; 
         
-        // ¿øÀÌ ±×·ÁÁú Áß½ÉÁÂÇ¥¸¦ Å¬¸¯ÇÑ À§Ä¡·Î ¼³Á¤ÇÕ´Ï´Ù 
+        // ì›ì´ ê·¸ë ¤ì§ˆ ì¤‘ì‹¬ì¢Œí‘œë¥¼ í´ë¦­í•œ ìœ„ì¹˜ë¡œ ì„¤ì •í•©ë‹ˆë‹¤ 
         centerPosition = mouseEvent.latLng; 
-        // ±×·ÁÁö°í ÀÖ´Â ¿øÀÇ ¹İ°æÀ» Ç¥½ÃÇÒ ¼± °´Ã¼¸¦ »ı¼ºÇÕ´Ï´Ù
+        // ê·¸ë ¤ì§€ê³  ìˆëŠ” ì›ì˜ ë°˜ê²½ì„ í‘œì‹œí•  ì„  ê°ì²´ë¥¼ ìƒì„±í•©ë‹ˆë‹¤
         if (!drawingLine) {
             drawingLine = new daum.maps.Polyline({
-                strokeWeight: 3, // ¼±ÀÇ µÎ²²ÀÔ´Ï´Ù
-                strokeColor: '#00a0e9', // ¼±ÀÇ »ö±òÀÔ´Ï´Ù
-                strokeOpacity: 1, // ¼±ÀÇ ºÒÅõ¸íµµÀÔ´Ï´Ù 0¿¡¼­ 1 »çÀÌ°ªÀÌ¸ç 0¿¡ °¡±î¿ï¼ö·Ï Åõ¸íÇÕ´Ï´Ù
-                strokeStyle: 'solid' // ¼±ÀÇ ½ºÅ¸ÀÏÀÔ´Ï´Ù
+                strokeWeight: 3, // ì„ ì˜ ë‘ê»˜ì…ë‹ˆë‹¤
+                strokeColor: '#00a0e9', // ì„ ì˜ ìƒ‰ê¹”ì…ë‹ˆë‹¤
+                strokeOpacity: 1, // ì„ ì˜ ë¶ˆíˆ¬ëª…ë„ì…ë‹ˆë‹¤ 0ì—ì„œ 1 ì‚¬ì´ê°’ì´ë©° 0ì— ê°€ê¹Œìš¸ìˆ˜ë¡ íˆ¬ëª…í•©ë‹ˆë‹¤
+                strokeStyle: 'solid' // ì„ ì˜ ìŠ¤íƒ€ì¼ì…ë‹ˆë‹¤
             });    
         }
         
-        // ±×·ÁÁö°í ÀÖ´Â ¿øÀ» Ç¥½ÃÇÒ ¿ø °´Ã¼¸¦ »ı¼ºÇÕ´Ï´Ù
+        // ê·¸ë ¤ì§€ê³  ìˆëŠ” ì›ì„ í‘œì‹œí•  ì› ê°ì²´ë¥¼ ìƒì„±í•©ë‹ˆë‹¤
         if (!drawingCircle) {                    
             drawingCircle = new daum.maps.Circle({ 
-                strokeWeight: 1, // ¼±ÀÇ µÎ²²ÀÔ´Ï´Ù
-                strokeColor: '#00a0e9', // ¼±ÀÇ »ö±òÀÔ´Ï´Ù
-                strokeOpacity: 0.1, // ¼±ÀÇ ºÒÅõ¸íµµÀÔ´Ï´Ù 0¿¡¼­ 1 »çÀÌ°ªÀÌ¸ç 0¿¡ °¡±î¿ï¼ö·Ï Åõ¸íÇÕ´Ï´Ù
-                strokeStyle: 'solid', // ¼±ÀÇ ½ºÅ¸ÀÏÀÔ´Ï´Ù
-                fillColor: '#00a0e9', // Ã¤¿ì±â »ö±òÀÔ´Ï´Ù
-                fillOpacity: 0.2 // Ã¤¿ì±â ºÒÅõ¸íµµÀÔ´Ï´Ù 
+                strokeWeight: 1, // ì„ ì˜ ë‘ê»˜ì…ë‹ˆë‹¤
+                strokeColor: '#00a0e9', // ì„ ì˜ ìƒ‰ê¹”ì…ë‹ˆë‹¤
+                strokeOpacity: 0.1, // ì„ ì˜ ë¶ˆíˆ¬ëª…ë„ì…ë‹ˆë‹¤ 0ì—ì„œ 1 ì‚¬ì´ê°’ì´ë©° 0ì— ê°€ê¹Œìš¸ìˆ˜ë¡ íˆ¬ëª…í•©ë‹ˆë‹¤
+                strokeStyle: 'solid', // ì„ ì˜ ìŠ¤íƒ€ì¼ì…ë‹ˆë‹¤
+                fillColor: '#00a0e9', // ì±„ìš°ê¸° ìƒ‰ê¹”ì…ë‹ˆë‹¤
+                fillOpacity: 0.2 // ì±„ìš°ê¸° ë¶ˆíˆ¬ëª…ë„ì…ë‹ˆë‹¤ 
             });     
         }
         
-        // ±×·ÁÁö°í ÀÖ´Â ¿øÀÇ ¹İ°æ Á¤º¸¸¦ Ç¥½ÃÇÒ Ä¿½ºÅÒ¿À¹ö·¹ÀÌ¸¦ »ı¼ºÇÕ´Ï´Ù
+        // ê·¸ë ¤ì§€ê³  ìˆëŠ” ì›ì˜ ë°˜ê²½ ì •ë³´ë¥¼ í‘œì‹œí•  ì»¤ìŠ¤í…€ì˜¤ë²„ë ˆì´ë¥¼ ìƒì„±í•©ë‹ˆë‹¤
         if (!drawingOverlay) {
             drawingOverlay = new daum.maps.CustomOverlay({
                 xAnchor: 0,
@@ -121,52 +103,52 @@ daum.maps.event.addListener(map, 'click', function(mouseEvent) {
         }
     }
     });
-// Áöµµ¿¡ ¸¶¿ì½º¹«ºê ÀÌº¥Æ®¸¦ µî·ÏÇÕ´Ï´Ù
-// ¿øÀ» ±×¸®°íÀÖ´Â »óÅÂ¿¡¼­ ¸¶¿ì½º¹«ºê ÀÌº¥Æ®°¡ ¹ß»ıÇÏ¸é ±×·ÁÁú ¿øÀÇ À§Ä¡¿Í ¹İ°æÁ¤º¸¸¦ µ¿ÀûÀ¸·Î º¸¿©ÁÖµµ·Ï ÇÕ´Ï´Ù
+// ì§€ë„ì— ë§ˆìš°ìŠ¤ë¬´ë¸Œ ì´ë²¤íŠ¸ë¥¼ ë“±ë¡í•©ë‹ˆë‹¤
+// ì›ì„ ê·¸ë¦¬ê³ ìˆëŠ” ìƒíƒœì—ì„œ ë§ˆìš°ìŠ¤ë¬´ë¸Œ ì´ë²¤íŠ¸ê°€ ë°œìƒí•˜ë©´ ê·¸ë ¤ì§ˆ ì›ì˜ ìœ„ì¹˜ì™€ ë°˜ê²½ì •ë³´ë¥¼ ë™ì ìœ¼ë¡œ ë³´ì—¬ì£¼ë„ë¡ í•©ë‹ˆë‹¤
 daum.maps.event.addListener(map, 'mousemove', function (mouseEvent) {
         
-    // ¸¶¿ì½º¹«ºê ÀÌº¥Æ®°¡ ¹ß»ıÇßÀ» ¶§ ¿øÀ» ±×¸®°íÀÖ´Â »óÅÂÀÌ¸é
+    // ë§ˆìš°ìŠ¤ë¬´ë¸Œ ì´ë²¤íŠ¸ê°€ ë°œìƒí–ˆì„ ë•Œ ì›ì„ ê·¸ë¦¬ê³ ìˆëŠ” ìƒíƒœì´ë©´
     if (drawingFlag) {
-        // ¸¶¿ì½º Ä¿¼­ÀÇ ÇöÀç À§Ä¡¸¦ ¾ò¾î¿É´Ï´Ù 
+        // ë§ˆìš°ìŠ¤ ì»¤ì„œì˜ í˜„ì¬ ìœ„ì¹˜ë¥¼ ì–»ì–´ì˜µë‹ˆë‹¤ 
         var mousePosition = mouseEvent.latLng; 
         
-        // ±×·ÁÁö°í ÀÖ´Â ¼±À» Ç¥½ÃÇÒ ÁÂÇ¥ ¹è¿­ÀÔ´Ï´Ù. Å¬¸¯ÇÑ Áß½ÉÁÂÇ¥¿Í ¸¶¿ì½ºÄ¿¼­ÀÇ À§Ä¡·Î ¼³Á¤ÇÕ´Ï´Ù
+        // ê·¸ë ¤ì§€ê³  ìˆëŠ” ì„ ì„ í‘œì‹œí•  ì¢Œí‘œ ë°°ì—´ì…ë‹ˆë‹¤. í´ë¦­í•œ ì¤‘ì‹¬ì¢Œí‘œì™€ ë§ˆìš°ìŠ¤ì»¤ì„œì˜ ìœ„ì¹˜ë¡œ ì„¤ì •í•©ë‹ˆë‹¤
         var linePath = [centerPosition, mousePosition];     
         
-        // ±×·ÁÁö°í ÀÖ´Â ¼±À» Ç¥½ÃÇÒ ¼± °´Ã¼¿¡ ÁÂÇ¥ ¹è¿­À» ¼³Á¤ÇÕ´Ï´Ù
+        // ê·¸ë ¤ì§€ê³  ìˆëŠ” ì„ ì„ í‘œì‹œí•  ì„  ê°ì²´ì— ì¢Œí‘œ ë°°ì—´ì„ ì„¤ì •í•©ë‹ˆë‹¤
         drawingLine.setPath(linePath);
         
-        // ¿øÀÇ ¹İÁö¸§À» ¼± °´Ã¼¸¦ ÀÌ¿ëÇØ¼­ ¾ò¾î¿É´Ï´Ù 
+        // ì›ì˜ ë°˜ì§€ë¦„ì„ ì„  ê°ì²´ë¥¼ ì´ìš©í•´ì„œ ì–»ì–´ì˜µë‹ˆë‹¤ 
         var length = drawingLine.getLength();
         
         if(length > 0) {
             
-            // ±×·ÁÁö°í ÀÖ´Â ¿øÀÇ Áß½ÉÁÂÇ¥¿Í ¹İÁö¸§ÀÔ´Ï´Ù
+            // ê·¸ë ¤ì§€ê³  ìˆëŠ” ì›ì˜ ì¤‘ì‹¬ì¢Œí‘œì™€ ë°˜ì§€ë¦„ì…ë‹ˆë‹¤
             var circleOptions = { 
                 center : centerPosition, 
             radius: length,                 
             };
             
-            // ±×·ÁÁö°í ÀÖ´Â ¿øÀÇ ¿É¼ÇÀ» ¼³Á¤ÇÕ´Ï´Ù
+            // ê·¸ë ¤ì§€ê³  ìˆëŠ” ì›ì˜ ì˜µì…˜ì„ ì„¤ì •í•©ë‹ˆë‹¤
             drawingCircle.setOptions(circleOptions); 
                 
-            // ¹İ°æ Á¤º¸¸¦ Ç¥½ÃÇÒ Ä¿½ºÅÒ¿À¹ö·¹ÀÌÀÇ ³»¿ëÀÔ´Ï´Ù
+            // ë°˜ê²½ ì •ë³´ë¥¼ í‘œì‹œí•  ì»¤ìŠ¤í…€ì˜¤ë²„ë ˆì´ì˜ ë‚´ìš©ì…ë‹ˆë‹¤
             var radius = Math.round(drawingCircle.getRadius()),   
-            content = '<div class="info">¹İ°æ <span class="number">' + radius + '</span>m</div>';
+            content = '<div class="info">ë°˜ê²½ <span class="number">' + radius + '</span>m</div>';
             
-            // ¹İ°æ Á¤º¸¸¦ Ç¥½ÃÇÒ Ä¿½ºÅÒ ¿À¹ö·¹ÀÌÀÇ ÁÂÇ¥¸¦ ¸¶¿ì½ºÄ¿¼­ À§Ä¡·Î ¼³Á¤ÇÕ´Ï´Ù
+            // ë°˜ê²½ ì •ë³´ë¥¼ í‘œì‹œí•  ì»¤ìŠ¤í…€ ì˜¤ë²„ë ˆì´ì˜ ì¢Œí‘œë¥¼ ë§ˆìš°ìŠ¤ì»¤ì„œ ìœ„ì¹˜ë¡œ ì„¤ì •í•©ë‹ˆë‹¤
             drawingOverlay.setPosition(mousePosition);
             
-            // ¹İ°æ Á¤º¸¸¦ Ç¥½ÃÇÒ Ä¿½ºÅÒ ¿À¹ö·¹ÀÌÀÇ Ç¥½ÃÇÒ ³»¿ëÀ» ¼³Á¤ÇÕ´Ï´Ù
+            // ë°˜ê²½ ì •ë³´ë¥¼ í‘œì‹œí•  ì»¤ìŠ¤í…€ ì˜¤ë²„ë ˆì´ì˜ í‘œì‹œí•  ë‚´ìš©ì„ ì„¤ì •í•©ë‹ˆë‹¤
             drawingOverlay.setContent(content);
             
-            // ±×·ÁÁö°í ÀÖ´Â ¿øÀ» Áöµµ¿¡ Ç¥½ÃÇÕ´Ï´Ù
+            // ê·¸ë ¤ì§€ê³  ìˆëŠ” ì›ì„ ì§€ë„ì— í‘œì‹œí•©ë‹ˆë‹¤
             drawingCircle.setMap(map); 
             
-            // ±×·ÁÁö°í ÀÖ´Â ¼±À» Áöµµ¿¡ Ç¥½ÃÇÕ´Ï´Ù
+            // ê·¸ë ¤ì§€ê³  ìˆëŠ” ì„ ì„ ì§€ë„ì— í‘œì‹œí•©ë‹ˆë‹¤
             drawingLine.setMap(map);  
             
-            // ±×·ÁÁö°í ÀÖ´Â ¿øÀÇ ¹İ°æÁ¤º¸ Ä¿½ºÅÒ ¿À¹ö·¹ÀÌ¸¦ Áöµµ¿¡ Ç¥½ÃÇÕ´Ï´Ù
+            // ê·¸ë ¤ì§€ê³  ìˆëŠ” ì›ì˜ ë°˜ê²½ì •ë³´ ì»¤ìŠ¤í…€ ì˜¤ë²„ë ˆì´ë¥¼ ì§€ë„ì— í‘œì‹œí•©ë‹ˆë‹¤
             drawingOverlay.setMap(map);
             
         } else { 
@@ -178,79 +160,79 @@ daum.maps.event.addListener(map, 'mousemove', function (mouseEvent) {
         }
     }     
 });     
-// Áöµµ¿¡ ¸¶¿ì½º ¿À¸¥ÂÊ Å¬¸¯ÀÌº¥Æ®¸¦ µî·ÏÇÕ´Ï´Ù
-// ¿øÀ» ±×¸®°íÀÖ´Â »óÅÂ¿¡¼­ ¸¶¿ì½º ¿À¸¥ÂÊ Å¬¸¯ ÀÌº¥Æ®°¡ ¹ß»ıÇÏ¸é
-// ¸¶¿ì½º ¿À¸¥ÂÊ Å¬¸¯ÇÑ À§Ä¡¸¦ ±âÁØÀ¸·Î ¿ø°ú ¿øÀÇ ¹İ°æÁ¤º¸¸¦ Ç¥½ÃÇÏ´Â ¼±°ú Ä¿½ºÅÒ ¿À¹ö·¹ÀÌ¸¦ Ç¥½ÃÇÏ°í ±×¸®±â¸¦ Á¾·áÇÕ´Ï´Ù
+// ì§€ë„ì— ë§ˆìš°ìŠ¤ ì˜¤ë¥¸ìª½ í´ë¦­ì´ë²¤íŠ¸ë¥¼ ë“±ë¡í•©ë‹ˆë‹¤
+// ì›ì„ ê·¸ë¦¬ê³ ìˆëŠ” ìƒíƒœì—ì„œ ë§ˆìš°ìŠ¤ ì˜¤ë¥¸ìª½ í´ë¦­ ì´ë²¤íŠ¸ê°€ ë°œìƒí•˜ë©´
+// ë§ˆìš°ìŠ¤ ì˜¤ë¥¸ìª½ í´ë¦­í•œ ìœ„ì¹˜ë¥¼ ê¸°ì¤€ìœ¼ë¡œ ì›ê³¼ ì›ì˜ ë°˜ê²½ì •ë³´ë¥¼ í‘œì‹œí•˜ëŠ” ì„ ê³¼ ì»¤ìŠ¤í…€ ì˜¤ë²„ë ˆì´ë¥¼ í‘œì‹œí•˜ê³  ê·¸ë¦¬ê¸°ë¥¼ ì¢…ë£Œí•©ë‹ˆë‹¤
 daum.maps.event.addListener(map, 'rightclick', function (mouseEvent) {
     if (drawingFlag) {
-        // ¸¶¿ì½º·Î ¿À¸¥ÂÊ Å¬¸¯ÇÑ À§Ä¡ÀÔ´Ï´Ù 
+        // ë§ˆìš°ìŠ¤ë¡œ ì˜¤ë¥¸ìª½ í´ë¦­í•œ ìœ„ì¹˜ì…ë‹ˆë‹¤ 
         var rClickPosition = mouseEvent.latLng; 
-        // ¿øÀÇ ¹İ°æÀ» Ç¥½ÃÇÒ ¼± °´Ã¼¸¦ »ı¼ºÇÕ´Ï´Ù
+        // ì›ì˜ ë°˜ê²½ì„ í‘œì‹œí•  ì„  ê°ì²´ë¥¼ ìƒì„±í•©ë‹ˆë‹¤
         var polyline = new daum.maps.Polyline({
-            path: [centerPosition, rClickPosition], // ¼±À» ±¸¼ºÇÏ´Â ÁÂÇ¥ ¹è¿­ÀÔ´Ï´Ù. ¿øÀÇ Áß½ÉÁÂÇ¥¿Í Å¬¸¯ÇÑ À§Ä¡·Î ¼³Á¤ÇÕ´Ï´Ù
-            strokeWeight: 3, // ¼±ÀÇ µÎ²² ÀÔ´Ï´Ù
-            strokeColor: '#00a0e9', // ¼±ÀÇ »ö±òÀÔ´Ï´Ù
-            strokeOpacity: 1, // ¼±ÀÇ ºÒÅõ¸íµµÀÔ´Ï´Ù 0¿¡¼­ 1 »çÀÌ°ªÀÌ¸ç 0¿¡ °¡±î¿ï¼ö·Ï Åõ¸íÇÕ´Ï´Ù
-            strokeStyle: 'solid' // ¼±ÀÇ ½ºÅ¸ÀÏÀÔ´Ï´Ù
+            path: [centerPosition, rClickPosition], // ì„ ì„ êµ¬ì„±í•˜ëŠ” ì¢Œí‘œ ë°°ì—´ì…ë‹ˆë‹¤. ì›ì˜ ì¤‘ì‹¬ì¢Œí‘œì™€ í´ë¦­í•œ ìœ„ì¹˜ë¡œ ì„¤ì •í•©ë‹ˆë‹¤
+            strokeWeight: 3, // ì„ ì˜ ë‘ê»˜ ì…ë‹ˆë‹¤
+            strokeColor: '#00a0e9', // ì„ ì˜ ìƒ‰ê¹”ì…ë‹ˆë‹¤
+            strokeOpacity: 1, // ì„ ì˜ ë¶ˆíˆ¬ëª…ë„ì…ë‹ˆë‹¤ 0ì—ì„œ 1 ì‚¬ì´ê°’ì´ë©° 0ì— ê°€ê¹Œìš¸ìˆ˜ë¡ íˆ¬ëª…í•©ë‹ˆë‹¤
+            strokeStyle: 'solid' // ì„ ì˜ ìŠ¤íƒ€ì¼ì…ë‹ˆë‹¤
         });
         
-        // ¿ø °´Ã¼¸¦ »ı¼ºÇÕ´Ï´Ù
+        // ì› ê°ì²´ë¥¼ ìƒì„±í•©ë‹ˆë‹¤
         var circle = new daum.maps.Circle({ 
-            center : centerPosition, // ¿øÀÇ Áß½ÉÁÂÇ¥ÀÔ´Ï´Ù
-            radius: polyline.getLength(), // ¿øÀÇ ¹İÁö¸§ÀÔ´Ï´Ù m ´ÜÀ§ ÀÌ¸ç ¼± °´Ã¼¸¦ ÀÌ¿ëÇØ¼­ ¾ò¾î¿É´Ï´Ù
-            strokeWeight: 1, // ¼±ÀÇ µÎ²²ÀÔ´Ï´Ù
-            strokeColor: '#00a0e9', // ¼±ÀÇ »ö±òÀÔ´Ï´Ù
-            strokeOpacity: 0.1, // ¼±ÀÇ ºÒÅõ¸íµµÀÔ´Ï´Ù 0¿¡¼­ 1 »çÀÌ°ªÀÌ¸ç 0¿¡ °¡±î¿ï¼ö·Ï Åõ¸íÇÕ´Ï´Ù
-            strokeStyle: 'solid', // ¼±ÀÇ ½ºÅ¸ÀÏÀÔ´Ï´Ù
-            fillColor: '#00a0e9', // Ã¤¿ì±â »ö±òÀÔ´Ï´Ù
-            fillOpacity: 0.2  // Ã¤¿ì±â ºÒÅõ¸íµµÀÔ´Ï´Ù 
+            center : centerPosition, // ì›ì˜ ì¤‘ì‹¬ì¢Œí‘œì…ë‹ˆë‹¤
+            radius: polyline.getLength(), // ì›ì˜ ë°˜ì§€ë¦„ì…ë‹ˆë‹¤ m ë‹¨ìœ„ ì´ë©° ì„  ê°ì²´ë¥¼ ì´ìš©í•´ì„œ ì–»ì–´ì˜µë‹ˆë‹¤
+            strokeWeight: 1, // ì„ ì˜ ë‘ê»˜ì…ë‹ˆë‹¤
+            strokeColor: '#00a0e9', // ì„ ì˜ ìƒ‰ê¹”ì…ë‹ˆë‹¤
+            strokeOpacity: 0.1, // ì„ ì˜ ë¶ˆíˆ¬ëª…ë„ì…ë‹ˆë‹¤ 0ì—ì„œ 1 ì‚¬ì´ê°’ì´ë©° 0ì— ê°€ê¹Œìš¸ìˆ˜ë¡ íˆ¬ëª…í•©ë‹ˆë‹¤
+            strokeStyle: 'solid', // ì„ ì˜ ìŠ¤íƒ€ì¼ì…ë‹ˆë‹¤
+            fillColor: '#00a0e9', // ì±„ìš°ê¸° ìƒ‰ê¹”ì…ë‹ˆë‹¤
+            fillOpacity: 0.2  // ì±„ìš°ê¸° ë¶ˆíˆ¬ëª…ë„ì…ë‹ˆë‹¤ 
         });
         
-        var radius = Math.round(circle.getRadius()), // ¿øÀÇ ¹İ°æ Á¤º¸¸¦ ¾ò¾î¿É´Ï´Ù
-            content = getTimeHTML(radius); // Ä¿½ºÅÒ ¿À¹ö·¹ÀÌ¿¡ Ç¥½ÃÇÒ ¹İ°æ Á¤º¸ÀÔ´Ï´Ù
+        var radius = Math.round(circle.getRadius()), // ì›ì˜ ë°˜ê²½ ì •ë³´ë¥¼ ì–»ì–´ì˜µë‹ˆë‹¤
+            content = getTimeHTML(radius); // ì»¤ìŠ¤í…€ ì˜¤ë²„ë ˆì´ì— í‘œì‹œí•  ë°˜ê²½ ì •ë³´ì…ë‹ˆë‹¤
         
-        // ¹İ°æÁ¤º¸¸¦ Ç¥½ÃÇÒ Ä¿½ºÅÒ ¿À¹ö·¹ÀÌ¸¦ »ı¼ºÇÕ´Ï´Ù
+        // ë°˜ê²½ì •ë³´ë¥¼ í‘œì‹œí•  ì»¤ìŠ¤í…€ ì˜¤ë²„ë ˆì´ë¥¼ ìƒì„±í•©ë‹ˆë‹¤
         var radiusOverlay = new daum.maps.CustomOverlay({
-            content: content, // Ç¥½ÃÇÒ ³»¿ëÀÔ´Ï´Ù
-            position: rClickPosition, // Ç¥½ÃÇÒ À§Ä¡ÀÔ´Ï´Ù. Å¬¸¯ÇÑ À§Ä¡·Î ¼³Á¤ÇÕ´Ï´Ù
+            content: content, // í‘œì‹œí•  ë‚´ìš©ì…ë‹ˆë‹¤
+            position: rClickPosition, // í‘œì‹œí•  ìœ„ì¹˜ì…ë‹ˆë‹¤. í´ë¦­í•œ ìœ„ì¹˜ë¡œ ì„¤ì •í•©ë‹ˆë‹¤
             xAnchor: 0,
             yAnchor: 0,
             zIndex: 1 
         });  
-        // ¿øÀ» Áöµµ¿¡ Ç¥½ÃÇÕ´Ï´Ù
+        // ì›ì„ ì§€ë„ì— í‘œì‹œí•©ë‹ˆë‹¤
         circle.setMap(map); 
         
-        // ¼±À» Áöµµ¿¡ Ç¥½ÃÇÕ´Ï´Ù
+        // ì„ ì„ ì§€ë„ì— í‘œì‹œí•©ë‹ˆë‹¤
         polyline.setMap(map);
         
-        // ¹İ°æ Á¤º¸ Ä¿½ºÅÒ ¿À¹ö·¹ÀÌ¸¦ Áöµµ¿¡ Ç¥½ÃÇÕ´Ï´Ù
+        // ë°˜ê²½ ì •ë³´ ì»¤ìŠ¤í…€ ì˜¤ë²„ë ˆì´ë¥¼ ì§€ë„ì— í‘œì‹œí•©ë‹ˆë‹¤
         radiusOverlay.setMap(map);
         
-        // ¹è¿­¿¡ ´ãÀ» °´Ã¼ÀÔ´Ï´Ù. ¿ø, ¼±, Ä¿½ºÅÒ¿À¹ö·¹ÀÌ °´Ã¼¸¦ °¡Áö°í ÀÖ½À´Ï´Ù
+        // ë°°ì—´ì— ë‹´ì„ ê°ì²´ì…ë‹ˆë‹¤. ì›, ì„ , ì»¤ìŠ¤í…€ì˜¤ë²„ë ˆì´ ê°ì²´ë¥¼ ê°€ì§€ê³  ìˆìŠµë‹ˆë‹¤
         var radiusObj = {
             'polyline' : polyline,
             'circle' : circle,
             'overlay' : radiusOverlay
         };
         
-        // ¹è¿­¿¡ Ãß°¡ÇÕ´Ï´Ù
-        // ÀÌ ¹è¿­À» ÀÌ¿ëÇØ¼­ "¸ğµÎ Áö¿ì±â" ¹öÆ°À» Å¬¸¯ÇßÀ» ¶§ Áöµµ¿¡ ±×·ÁÁø ¿ø, ¼±, Ä¿½ºÅÒ¿À¹ö·¹ÀÌµéÀ» Áö¿ó´Ï´Ù
+        // ë°°ì—´ì— ì¶”ê°€í•©ë‹ˆë‹¤
+        // ì´ ë°°ì—´ì„ ì´ìš©í•´ì„œ "ëª¨ë‘ ì§€ìš°ê¸°" ë²„íŠ¼ì„ í´ë¦­í–ˆì„ ë•Œ ì§€ë„ì— ê·¸ë ¤ì§„ ì›, ì„ , ì»¤ìŠ¤í…€ì˜¤ë²„ë ˆì´ë“¤ì„ ì§€ì›ë‹ˆë‹¤
         circles.push(radiusObj);   
     
-        // ±×¸®±â »óÅÂ¸¦ ±×¸®°í ÀÖÁö ¾Ê´Â »óÅÂ·Î ¹Ù²ß´Ï´Ù
+        // ê·¸ë¦¬ê¸° ìƒíƒœë¥¼ ê·¸ë¦¬ê³  ìˆì§€ ì•ŠëŠ” ìƒíƒœë¡œ ë°”ê¿‰ë‹ˆë‹¤
         drawingFlag = false;
         
-        // Áß½É ÁÂÇ¥¸¦ ÃÊ±âÈ­ ÇÕ´Ï´Ù  
+        // ì¤‘ì‹¬ ì¢Œí‘œë¥¼ ì´ˆê¸°í™” í•©ë‹ˆë‹¤  
         centerPosition = null;
         
-        // ±×·ÁÁö°í ÀÖ´Â ¿ø, ¼±, Ä¿½ºÅÒ¿À¹ö·¹ÀÌ¸¦ Áöµµ¿¡¼­ Á¦°ÅÇÕ´Ï´Ù
+        // ê·¸ë ¤ì§€ê³  ìˆëŠ” ì›, ì„ , ì»¤ìŠ¤í…€ì˜¤ë²„ë ˆì´ë¥¼ ì§€ë„ì—ì„œ ì œê±°í•©ë‹ˆë‹¤
         drawingCircle.setMap(null);
         drawingLine.setMap(null);   
         drawingOverlay.setMap(null);
     }
 });    
     
-// Áöµµ¿¡ Ç¥½ÃµÇ¾î ÀÖ´Â ¸ğµç ¿ø°ú ¹İ°æÁ¤º¸¸¦ Ç¥½ÃÇÏ´Â ¼±, Ä¿½ºÅÒ ¿À¹ö·¹ÀÌ¸¦ Áöµµ¿¡¼­ Á¦°ÅÇÕ´Ï´Ù
+// ì§€ë„ì— í‘œì‹œë˜ì–´ ìˆëŠ” ëª¨ë“  ì›ê³¼ ë°˜ê²½ì •ë³´ë¥¼ í‘œì‹œí•˜ëŠ” ì„ , ì»¤ìŠ¤í…€ ì˜¤ë²„ë ˆì´ë¥¼ ì§€ë„ì—ì„œ ì œê±°í•©ë‹ˆë‹¤
 function removeCircles() {         
     for (var i = 0; i < circles.length; i++) {
         circles[i].circle.setMap(null);    
@@ -259,36 +241,36 @@ function removeCircles() {
     }         
     circles = [];
 }
-// ¸¶¿ì½º ¿ìÅ¬¸¯ ÇÏ¿© ¿ø ±×¸®±â°¡ Á¾·áµÆÀ» ¶§ È£ÃâÇÏ¿© 
-// ±×·ÁÁø ¿øÀÇ ¹İ°æ Á¤º¸¿Í ¹İ°æ¿¡ ´ëÇÑ µµº¸, ÀÚÀü°Å ½Ã°£À» °è»êÇÏ¿©
-// HTML Content¸¦ ¸¸µé¾î ¸®ÅÏÇÏ´Â ÇÔ¼öÀÔ´Ï´Ù
+// ë§ˆìš°ìŠ¤ ìš°í´ë¦­ í•˜ì—¬ ì› ê·¸ë¦¬ê¸°ê°€ ì¢…ë£Œëì„ ë•Œ í˜¸ì¶œí•˜ì—¬ 
+// ê·¸ë ¤ì§„ ì›ì˜ ë°˜ê²½ ì •ë³´ì™€ ë°˜ê²½ì— ëŒ€í•œ ë„ë³´, ìì „ê±° ì‹œê°„ì„ ê³„ì‚°í•˜ì—¬
+// HTML Contentë¥¼ ë§Œë“¤ì–´ ë¦¬í„´í•˜ëŠ” í•¨ìˆ˜ì…ë‹ˆë‹¤
 function getTimeHTML(distance) {
-    // µµº¸ÀÇ ½Ã¼ÓÀº Æò±Õ 4km/h ÀÌ°í µµº¸ÀÇ ºĞ¼ÓÀº 67m/minÀÔ´Ï´Ù
+    // ë„ë³´ì˜ ì‹œì†ì€ í‰ê·  4km/h ì´ê³  ë„ë³´ì˜ ë¶„ì†ì€ 67m/minì…ë‹ˆë‹¤
     var walkkTime = distance / 67 | 0;
     var walkHour = '', walkMin = '';
-    // °è»êÇÑ µµº¸ ½Ã°£ÀÌ 60ºĞ º¸´Ù Å©¸é ½Ã°£À¸·Î Ç¥½ÃÇÕ´Ï´Ù
+    // ê³„ì‚°í•œ ë„ë³´ ì‹œê°„ì´ 60ë¶„ ë³´ë‹¤ í¬ë©´ ì‹œê°„ìœ¼ë¡œ í‘œì‹œí•©ë‹ˆë‹¤
     if (walkkTime > 60) {
-        walkHour = '<span class="number">' + Math.floor(walkkTime / 60) + '</span>½Ã°£ '
+        walkHour = '<span class="number">' + Math.floor(walkkTime / 60) + '</span>ì‹œê°„ '
     }
-    walkMin = '<span class="number">' + walkkTime % 60 + '</span>ºĞ'
-    // ÀÚÀü°ÅÀÇ Æò±Õ ½Ã¼ÓÀº 16km/h ÀÌ°í ÀÌ°ÍÀ» ±âÁØÀ¸·Î ÀÚÀü°ÅÀÇ ºĞ¼ÓÀº 267m/minÀÔ´Ï´Ù
+    walkMin = '<span class="number">' + walkkTime % 60 + '</span>ë¶„'
+    // ìì „ê±°ì˜ í‰ê·  ì‹œì†ì€ 16km/h ì´ê³  ì´ê²ƒì„ ê¸°ì¤€ìœ¼ë¡œ ìì „ê±°ì˜ ë¶„ì†ì€ 267m/minì…ë‹ˆë‹¤
     var bycicleTime = distance / 227 | 0;
     var bycicleHour = '', bycicleMin = '';
-    // °è»êÇÑ ÀÚÀü°Å ½Ã°£ÀÌ 60ºĞ º¸´Ù Å©¸é ½Ã°£À¸·Î Ç¥ÃâÇÕ´Ï´Ù
+    // ê³„ì‚°í•œ ìì „ê±° ì‹œê°„ì´ 60ë¶„ ë³´ë‹¤ í¬ë©´ ì‹œê°„ìœ¼ë¡œ í‘œì¶œí•©ë‹ˆë‹¤
     if (bycicleTime > 60) {
-        bycicleHour = '<span class="number">' + Math.floor(bycicleTime / 60) + '</span>½Ã°£ '
+        bycicleHour = '<span class="number">' + Math.floor(bycicleTime / 60) + '</span>ì‹œê°„ '
     }
-    bycicleMin = '<span class="number">' + bycicleTime % 60 + '</span>ºĞ'
-    // °Å¸®¿Í µµº¸ ½Ã°£, ÀÚÀü°Å ½Ã°£À» °¡Áö°í HTML Content¸¦ ¸¸µé¾î ¸®ÅÏÇÕ´Ï´Ù
+    bycicleMin = '<span class="number">' + bycicleTime % 60 + '</span>ë¶„'
+    // ê±°ë¦¬ì™€ ë„ë³´ ì‹œê°„, ìì „ê±° ì‹œê°„ì„ ê°€ì§€ê³  HTML Contentë¥¼ ë§Œë“¤ì–´ ë¦¬í„´í•©ë‹ˆë‹¤
     var content = '<ul class="info">';
     content += '    <li>';
-    content += '        <span class="label">ÃÑ°Å¸®</span><span class="number">' + distance + '</span>m';
+    content += '        <span class="label">ì´ê±°ë¦¬</span><span class="number">' + distance + '</span>m';
     content += '    </li>';
     content += '    <li>';
-    content += '        <span class="label">µµº¸</span>' + walkHour + walkMin;
+    content += '        <span class="label">ë„ë³´</span>' + walkHour + walkMin;
     content += '    </li>';
     content += '    <li>';
-    content += '        <span class="label">ÀÚÀü°Å</span>' + bycicleHour + bycicleMin;
+    content += '        <span class="label">ìì „ê±°</span>' + bycicleHour + bycicleMin;
     content += '    </li>';
     content += '</ul>'
     return content;
